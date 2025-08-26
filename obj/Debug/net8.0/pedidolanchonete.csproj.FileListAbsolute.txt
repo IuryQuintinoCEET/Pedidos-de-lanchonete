@@ -1,0 +1,14 @@
+C:\C#_IURY\pedidolanchonete\bin\Debug\net8.0\pedidolanchonete.exe
+C:\C#_IURY\pedidolanchonete\bin\Debug\net8.0\pedidolanchonete.deps.json
+C:\C#_IURY\pedidolanchonete\bin\Debug\net8.0\pedidolanchonete.runtimeconfig.json
+C:\C#_IURY\pedidolanchonete\bin\Debug\net8.0\pedidolanchonete.dll
+C:\C#_IURY\pedidolanchonete\bin\Debug\net8.0\pedidolanchonete.pdb
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.GeneratedMSBuildEditorConfig.editorconfig
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.AssemblyInfoInputs.cache
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.AssemblyInfo.cs
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.csproj.CoreCompileInputs.cache
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.dll
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\refint\pedidolanchonete.dll
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.pdb
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.genruntimeconfig.cache
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\ref\pedidolanchonete.dll
