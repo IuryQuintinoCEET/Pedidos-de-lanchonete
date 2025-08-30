@@ -1,101 +1,127 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace PedidoLanchonete
 {
+    class Produto
+    {
+        public string Nome { get; set; }
+        public double Preco { get; set; }
+
+        public Produto(string nome, double preco)
+        {
+            Nome = nome;
+            Preco = preco;
+        }
+    }
+
     class Program
     {
-        static double AdicionarItem(string nomeItem, double precoUnitario)
-        {
-            Console.Write($"\n- Você selecionou {nomeItem}.");
-            Console.Write("\n- Digite a quantidade desejada: ");
-
-            string? inputQuantidade = Console.ReadLine();
-            int quantidade;
-
-            if (int.TryParse(inputQuantidade, out quantidade) && quantidade > 0)
-            {
-                double subtotal = quantidade * precoUnitario;
-                Console.WriteLine($"=> {quantidade}x {nomeItem}(s) adicionado(s) ao pedido. (Subtotal: {subtotal:C})");
-                return subtotal;
-            }
-            else
-            {
-                Console.WriteLine("=> Quantidade inválida! Nenhum item foi adicionado.");
-                return 0; 
-            }
-        }
-
         static void Main(string[] args)
         {
             CultureInfo.CurrentCulture = new CultureInfo("pt-BR", false);
 
-            double valorTotal = 0.0;
+            List<Produto> cardapio = new List<Produto>();
+            List<(Produto, int)> pedidos = new List<(Produto, int)>();
+
+            Console.WriteLine("==============================================");
+            Console.WriteLine("     Sistema de Cadastro e Pedido Lanchonete  ");
+            Console.WriteLine("==============================================");
+
+            // =========================
+            // 1. Cadastro de Produtos
+            // =========================
+            Console.WriteLine("\n--- Cadastro de Produtos ---");
+
+            string continuarCadastro;
+            do
+            {
+                Console.Write("Digite o nome do produto: ");
+                string nome = Console.ReadLine();
+
+                double preco;
+                Console.Write("Digite o preço do produto: ");
+                while (!double.TryParse(Console.ReadLine(), out preco) || preco <= 0)
+                {
+                    Console.Write("Preço inválido! Digite novamente: ");
+                }
+
+                cardapio.Add(new Produto(nome, preco));
+                Console.WriteLine($"=> Produto '{nome}' cadastrado com sucesso!");
+
+                Console.Write("Deseja cadastrar outro produto? (s/n): ");
+                continuarCadastro = Console.ReadLine().ToLower();
+
+            } while (continuarCadastro == "s");
+
+            // =========================
+            // 2. Pedido do Cliente
+            // =========================
             bool finalizarPedido = false;
-
-            Console.WriteLine("==============================================");
-            Console.WriteLine("   Bem-vindo ao Sistema de Pedidos da Lanchonete!   ");
-            Console.WriteLine("==============================================");
-
-            while (!finalizarPedido)
+            do
             {
                 Console.WriteLine("\n--- CARDÁPIO ---");
-                Console.WriteLine("1. Refrigerante - R$ 5,00");
-                Console.WriteLine("2. Suco Natural  - R$ 7,00");
-                Console.WriteLine("3. Água Mineral  - R$ 3,00");
-                Console.WriteLine("4. Café Expresso - R$ 4,00");
-                Console.WriteLine("5. Sair/Finalizar Pedido");
-                Console.WriteLine("------------------");
-                Console.Write("\nDigite o número da bebida desejada: ");
+                for (int i = 0; i < cardapio.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {cardapio[i].Nome} - {cardapio[i].Preco:C}");
+                }
+                Console.WriteLine($"{cardapio.Count + 1}. Finalizar Pedido");
 
-                string? input = Console.ReadLine();
+                Console.Write("\nDigite o número do produto desejado: ");
+                string input = Console.ReadLine();
                 int escolha;
 
                 if (int.TryParse(input, out escolha))
                 {
-                    switch (escolha)
+                    if (escolha >= 1 && escolha <= cardapio.Count)
                     {
-                        case 1:
-                            valorTotal += AdicionarItem("Refrigerante", 5.00);
-                            break;
+                        Produto produtoEscolhido = cardapio[escolha - 1];
 
-                        case 2:
-                            valorTotal += AdicionarItem("Suco Natural", 7.00);
-                            break;
+                        Console.Write($"Digite a quantidade de {produtoEscolhido.Nome}: ");
+                        int quantidade;
+                        while (!int.TryParse(Console.ReadLine(), out quantidade) || quantidade <= 0)
+                        {
+                            Console.Write("Quantidade inválida! Digite novamente: ");
+                        }
 
-                        case 3:
-                            valorTotal += AdicionarItem("Água Mineral", 3.00);
-                            break;
-
-                        case 4:
-                            valorTotal += AdicionarItem("Café Expresso", 4.00);
-                            break;
-
-                        case 5:
-                            finalizarPedido = true;
-                            Console.WriteLine("Finalizando o seu pedido...");
-                            break;
-
-                        default:
-                            Console.WriteLine("Opção inválida! Por favor, escolha um número do cardápio.");
-                            break;
+                        pedidos.Add((produtoEscolhido, quantidade));
+                        Console.WriteLine($"=> {quantidade}x {produtoEscolhido.Nome}(s) adicionado(s) ao pedido.");
+                    }
+                    else if (escolha == cardapio.Count + 1)
+                    {
+                        finalizarPedido = true;
+                        Console.WriteLine("Finalizando o pedido...");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Opção inválida! Escolha um número do cardápio.");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Entrada inválida! Por favor, digite apenas o número correspondente à opção.");
+                    Console.WriteLine("Entrada inválida! Digite apenas números.");
                 }
 
-                if (!finalizarPedido)
-                {
-                    Console.WriteLine($"\n>>> Total atual do pedido: {valorTotal:C}");
-                    Console.WriteLine("----------------------------------------------");
-                }
+            } while (!finalizarPedido);
+
+            // =========================
+            // 3. Resumo do Pedido
+            // =========================
+            Console.WriteLine("\n==============================================");
+            Console.WriteLine("                RESUMO DO PEDIDO              ");
+            Console.WriteLine("==============================================");
+
+            double valorTotal = 0;
+            foreach (var item in pedidos)
+            {
+                double subtotal = item.Item1.Preco * item.Item2;
+                Console.WriteLine($"{item.Item2}x {item.Item1.Nome} - Subtotal: {subtotal:C}");
+                valorTotal += subtotal;
             }
 
-            Console.WriteLine("\n==============================================");
-            Console.WriteLine("             PEDIDO FINALIZADO              ");
-            Console.WriteLine($"   O valor total da sua compra é: {valorTotal:C}");
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine($"TOTAL DA COMPRA: {valorTotal:C}");
             Console.WriteLine("==============================================");
             Console.WriteLine("\nObrigado pela preferência e volte sempre!");
         }

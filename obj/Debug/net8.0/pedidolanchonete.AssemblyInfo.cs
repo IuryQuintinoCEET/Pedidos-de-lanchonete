@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pedidolanchonete")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3f26d74b1ed8f71cadd27bf3613ae5d6f8a8828")]
 [assembly: System.Reflection.AssemblyProductAttribute("pedidolanchonete")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pedidolanchonete")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

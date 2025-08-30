@@ -12,3 +12,4 @@ C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\refint\pedidolanchonete.dll
 C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.pdb
 C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.genruntimeconfig.cache
 C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\ref\pedidolanchonete.dll
+C:\C#_IURY\pedidolanchonete\obj\Debug\net8.0\pedidolanchonete.sourcelink.json
